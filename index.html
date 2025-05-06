@@ -3,17 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ansh Gupta | Web Developer & Entrepreneur</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <title>ANSH GUPTA | Cyber Developer • AI Architect • Digital Alchemist • Chess Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #00f0ff;
-      --secondary: #ff00e4;
+      --neon-blue: #00f0ff;
+      --neon-pink: #ff00e4;
+      --neon-orange: #ff4d00;
+      --cyber-purple: #9d00ff;
+      --matrix-green: #00ff41;
       --dark: #0a0a12;
+      --darker: #050509;
       --light: #f0f0f0;
-      --accent: #ff4d00;
-      --card-bg: #12121a;
+      --card-bg: rgba(18, 18, 26, 0.8);
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --cyber-gradient: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+      --cyber-gradient-reverse: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+      --cyber-glow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-pink), 0 0 30px rgba(157, 0, 255, 0.5);
     }
     
     * {
@@ -24,11 +32,52 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--dark);
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--darker);
       color: var(--light);
       overflow-x: hidden;
       line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 0, 228, 0.03) 0%, transparent 20%),
+        linear-gradient(to bottom, #050509, #0a0a12);
+    }
+
+    /* Cyberpunk Scanlines Effect */
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(to bottom, 
+          rgba(0, 255, 65, 0.03) 1px, 
+          transparent 1px);
+      background-size: 100% 3px;
+      pointer-events: none;
+      z-index: 9999;
+      animation: scanline 8s linear infinite;
+    }
+
+    @keyframes scanline {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100%; }
+    }
+
+    /* Cyberpunk Grid Background */
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -2;
+      opacity: 0.3;
     }
 
     /* Header */
@@ -42,26 +91,48 @@
       position: relative;
       overflow: hidden;
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      z-index: 1;
     }
 
-    .glitch-container {
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.2) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 228, 0.2) 0%, transparent 25%);
+      z-index: -1;
+    }
+
+    .header-content {
       position: relative;
-      margin-bottom: 1.5rem;
+      z-index: 10;
+      max-width: 1200px;
+      padding: 0 2rem;
     }
 
-    .glitch {
+    .cyber-glitch {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .cyber-title {
+      font-family: 'Orbitron', sans-serif;
       font-size: 5rem;
       font-weight: 900;
       text-transform: uppercase;
       position: relative;
-      text-shadow: 0.05em 0 0 var(--primary),
-                  -0.05em -0.025em 0 var(--secondary),
-                  -0.025em 0.05em 0 var(--accent);
-      animation: glitch 500ms infinite;
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+      animation: flicker 2s infinite alternate;
     }
 
-    .glitch::before,
-    .glitch::after {
+    .cyber-title::before,
+    .cyber-title::after {
       content: attr(data-text);
       position: absolute;
       top: 0;
@@ -71,46 +142,59 @@
       opacity: 0.8;
     }
 
-    .glitch::before {
-      animation: glitch-effect 3s infinite linear alternate-reverse;
-      color: var(--primary);
+    .cyber-title::before {
+      color: var(--neon-pink);
       z-index: -1;
+      animation: glitch-effect 3s infinite linear alternate-reverse, flicker 3s infinite alternate;
+      text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
     }
 
-    .glitch::after {
-      animation: glitch-effect 2s infinite linear alternate-reverse;
-      color: var(--secondary);
+    .cyber-title::after {
+      color: var(--matrix-green);
       z-index: -2;
+      animation: glitch-effect 2s infinite linear alternate-reverse, flicker 5s infinite alternate;
+      text-shadow: 0 0 10px var(--matrix-green), 0 0 20px var(--matrix-green);
     }
 
-    @keyframes glitch {
-      0% { text-shadow: 0.05em 0 0 var(--primary), -0.05em -0.025em 0 var(--secondary), -0.025em 0.05em 0 var(--accent); }
-      14% { text-shadow: 0.05em 0 0 var(--primary), -0.05em -0.025em 0 var(--secondary), -0.025em 0.05em 0 var(--accent); }
-      15% { text-shadow: -0.05em -0.025em 0 var(--primary), 0.025em 0.025em 0 var(--secondary), -0.05em -0.05em 0 var(--accent); }
-      49% { text-shadow: -0.05em -0.025em 0 var(--primary), 0.025em 0.025em 0 var(--secondary), -0.05em -0.05em 0 var(--accent); }
-      50% { text-shadow: 0.025em 0.05em 0 var(--primary), 0.05em 0 0 var(--secondary), 0 -0.05em 0 var(--accent); }
-      99% { text-shadow: 0.025em 0.05em 0 var(--primary), 0.05em 0 0 var(--secondary), 0 -0.05em 0 var(--accent); }
-      100% { text-shadow: -0.025em 0 0 var(--primary), -0.025em -0.025em 0 var(--secondary), -0.025em -0.05em 0 var(--accent); }
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.7;
+      }
     }
 
     @keyframes glitch-effect {
-      0% { transform: translate(0); }
-      20% { transform: translate(-5px, 5px); }
-      40% { transform: translate(-5px, -5px); }
-      60% { transform: translate(5px, 5px); }
-      80% { transform: translate(5px, -5px); }
-      100% { transform: translate(0); }
+      0% { transform: translate(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+      20% { transform: translate(-5px, 5px); clip-path: polygon(0 20%, 100% 20%, 100% 80%, 0 80%); }
+      40% { transform: translate(-5px, -5px); clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%); }
+      60% { transform: translate(5px, 5px); clip-path: polygon(0 60%, 100% 60%, 100% 40%, 0 40%); }
+      80% { transform: translate(5px, -5px); clip-path: polygon(0 80%, 100% 80%, 100% 20%, 0 20%); }
+      100% { transform: translate(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
     }
 
-    .tagline {
+    .cyber-tagline {
+      font-family: 'Orbitron', sans-serif;
       font-size: 1.8rem;
-      margin-bottom: 2rem;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      margin-bottom: 3rem;
+      color: var(--light);
+      text-shadow: 0 0 5px var(--light);
+      position: relative;
+      display: inline-block;
+    }
+
+    .cyber-tagline::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--cyber-gradient);
       animation: gradientShift 5s ease infinite;
       background-size: 200% 200%;
+      box-shadow: var(--cyber-glow);
     }
 
     @keyframes gradientShift {
@@ -119,90 +203,92 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Particles */
-    .particles {
+    /* Cyber Hex Grid */
+    .cyber-hex-grid {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
+      opacity: 0.1;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="none" stroke="%2300f0ff" stroke-width="0.5" d="M50 0 L100 25 L100 75 L50 100 L0 75 L0 25 Z" /></svg>');
+      background-size: 100px 100px;
     }
 
-    .particle {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      animation: float linear infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
-    }
-
-    /* Social icons */
-    .social-icons {
+    /* Cyber Social Icons */
+    .cyber-social {
       display: flex;
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin-top: 3rem;
       z-index: 2;
     }
 
-    .social-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
+    .cyber-social-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: white;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--glass);
       backdrop-filter: blur(5px);
+      border: 1px solid var(--glass-border);
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      transform: rotate(45deg);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-    .social-icon::before {
+    .cyber-social-icon i {
+      transform: rotate(-45deg);
+    }
+
+    .cyber-social-icon::before {
       content: '';
       position: absolute;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      background: var(--cyber-gradient);
       top: 0;
       left: -100%;
       transition: 0.4s;
       z-index: -1;
+      opacity: 0.7;
     }
 
-    .social-icon:hover {
-      transform: translateY(-5px) scale(1.1);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    .cyber-social-icon:hover {
+      transform: rotate(45deg) scale(1.1);
+      box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-pink);
     }
 
-    .social-icon:hover::before {
+    .cyber-social-icon:hover::before {
       left: 0;
     }
 
-    /* Navigation */
-    .nav-container {
+    /* Cyber Navigation */
+    .cyber-nav {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 1000;
       transition: all 0.3s;
-    }
-
-    .nav-scrolled {
-      background: rgba(10, 10, 18, 0.9);
+      background: rgba(10, 10, 18, 0.3);
       backdrop-filter: blur(10px);
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.1);
     }
 
-    nav {
+    .cyber-nav-scrolled {
+      background: rgba(10, 10, 18, 0.9);
+      box-shadow: 0 5px 30px rgba(0, 240, 255, 0.2);
+      border-bottom: 1px solid var(--neon-blue);
+    }
+
+    .cyber-nav-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 1.5rem 2rem;
@@ -211,775 +297,1865 @@
       align-items: center;
     }
 
-    .logo {
-      font-size: 1.5rem;
+    .cyber-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
       font-weight: 700;
       color: white;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-shadow: 0 0 10px var(--neon-blue);
     }
 
-    .logo span {
-      color: var(--primary);
+    .cyber-logo span {
+      color: var(--neon-blue);
+      font-weight: 900;
     }
 
-    .nav-links {
+    .cyber-logo::after {
+      content: '//';
+      font-size: 1.5rem;
+      color: var(--neon-pink);
+      font-weight: 700;
+      text-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    .cyber-nav-links {
       display: flex;
       gap: 2rem;
     }
 
-    .nav-links a {
+    .cyber-nav-link {
       color: white;
       text-decoration: none;
       font-weight: 500;
       position: relative;
+      padding: 0.5rem 0;
+      font-size: 1.1rem;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .nav-links a::after {
+    .cyber-nav-link::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: 0;
       left: 0;
       width: 0;
-      height: 2px;
-      background: var(--primary);
+      height: 3px;
+      background: var(--cyber-gradient);
       transition: width 0.3s;
+      border-radius: 3px;
+      box-shadow: var(--cyber-glow);
     }
 
-    .nav-links a:hover::after {
+    .cyber-nav-link:hover::after {
       width: 100%;
     }
 
-    /* Sections */
-    section {
-      padding: 8rem 2rem;
+    .cyber-hamburger {
+      display: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .cyber-hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+
+    /* Cyber Sections */
+    .cyber-section {
+      padding: 12rem 2rem;
       position: relative;
     }
 
-    .section-title {
-      font-size: 3rem;
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cyber-section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 5rem;
       position: relative;
       display: inline-block;
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px var(--neon-blue);
     }
 
-    .section-title::after {
+    .cyber-section-title::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: -20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 100px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      border-radius: 2px;
+      width: 200px;
+      height: 5px;
+      background: var(--cyber-gradient);
+      border-radius: 5px;
+      animation: gradientShift 5s ease infinite;
+      background-size: 200% 200%;
+      box-shadow: var(--cyber-glow);
     }
 
-    /* About section */
-    .about-content {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: flex;
+    /* Cyber About Section */
+    .cyber-about {
+      background: radial-gradient(circle at center, rgba(0, 240, 255, 0.05) 0%, transparent 50%);
+    }
+
+    .cyber-about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
       align-items: center;
-      gap: 3rem;
     }
 
-    .about-text {
-      flex: 1;
-      font-size: 1.1rem;
+    .cyber-about-text {
+      font-size: 1.2rem;
       line-height: 1.8;
+      color: rgba(255, 255, 255, 0.9);
     }
 
-    .about-text p {
-      margin-bottom: 1.5rem;
+    .cyber-about-text p {
+      margin-bottom: 2rem;
       position: relative;
-      padding-left: 20px;
+      padding-left: 30px;
     }
 
-    .about-text p::before {
-      content: '';
+    .cyber-about-text p::before {
+      content: '>';
       position: absolute;
       left: 0;
-      top: 10px;
-      width: 10px;
-      height: 10px;
-      background: var(--primary);
-      border-radius: 50%;
+      top: 0;
+      color: var(--neon-blue);
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 5px var(--neon-blue);
     }
 
-    .about-card {
-      flex: 1;
+    .cyber-about-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .cyber-about-card {
       perspective: 1000px;
-      min-height: 300px;
+      height: 250px;
     }
 
-    .card-inner {
+    .cyber-card-inner {
       position: relative;
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
       transition: transform 0.8s;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .about-card:hover .card-inner {
+    .cyber-about-card:hover .cyber-card-inner {
       transform: rotateY(180deg);
     }
 
-    .card-front, .card-back {
+    .cyber-card-front, .cyber-card-back {
       position: absolute;
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 2rem;
-    }
-
-    .card-front {
-      background: linear-gradient(45deg, #1a1a2e, #16213e);
-      color: white;
-    }
-
-    .card-front i {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    .card-back {
-      background: linear-gradient(45deg, #0f3460, #533483);
-      transform: rotateY(180deg);
-    }
-
-    .card-back p {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-
-    .card-back i {
-      margin-right: 10px;
-      color: var(--primary);
-    }
-
-    /* Skills section */
-    .skills {
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
-      padding: 10rem 2rem;
-    }
-
-    .skills-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .skill-category {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .skill-category h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
-    }
-
-    .skill-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      padding: 0.8rem;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-      transition: all 0.3s;
-    }
-
-    .skill-item:hover {
-      transform: translateX(10px);
-      background: rgba(0, 240, 255, 0.1);
-    }
-
-    .skill-icon {
-      font-size: 1.8rem;
-      color: var(--primary);
-      width: 40px;
-      text-align: center;
-    }
-
-    /* Projects section */
-    .projects {
-      clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
-      padding: 10rem 2rem;
       background: var(--card-bg);
+      backdrop-filter: blur(10px);
     }
 
-    .projects-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
+    .cyber-card-front {
+      border: 1px solid var(--neon-blue);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
     }
 
-    .project-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0, 240, 255, 0.3);
-      border-color: var(--primary);
-    }
-
-    .project-icon {
-      font-size: 3rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .project-info h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .project-info p {
+    .cyber-card-front i {
+      font-size: 3.5rem;
       margin-bottom: 1.5rem;
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    .cyber-card-front h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--light);
+      text-shadow: 0 0 5px var(--light);
+    }
+
+    .cyber-card-front p {
       color: rgba(255, 255, 255, 0.7);
+      margin-top: 0.5rem;
     }
 
-    .project-links {
-      display: flex;
-      gap: 1rem;
+    .cyber-card-back {
+      border: 1px solid var(--neon-pink);
+      box-shadow: 0 0 20px rgba(255, 0, 228, 0.3);
+      transform: rotateY(180deg);
+      text-align: center;
+      padding: 2rem;
     }
 
-    .project-link {
-      padding: 0.5rem 1rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s;
+    .cyber-card-back p {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      color: var(--light);
     }
 
-    .project-link:hover {
-      background: var(--primary);
-      color: var(--dark);
+    .cyber-card-back i {
+      margin-right: 10px;
+      color: var(--neon-pink);
+      text-shadow: 0 0 5px var(--neon-pink);
     }
 
-    /* Contact section */
-    .contact {
+    /* Cyber Stats */
+    .cyber-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .cyber-stat {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2.5rem;
+      text-align: center;
+      border: 1px solid var(--glass-border);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(5px);
       position: relative;
       overflow: hidden;
     }
 
-    .contact::before {
+    .cyber-stat::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(0,240,255,0.03)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
-      background-size: cover;
-      opacity: 0.5;
+      background: var(--cyber-gradient);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .cyber-stat:hover {
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: var(--cyber-glow);
+      border-color: var(--neon-blue);
+    }
+
+    .cyber-stat:hover::before {
+      opacity: 0.1;
+    }
+
+    .cyber-stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--neon-blue);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    .cyber-stat-label {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Cyber Skills Section */
+    .cyber-skills {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+      padding: 15rem 2rem;
+      position: relative;
+    }
+
+    .cyber-skills::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 228, 0.1) 0%, transparent 25%);
       z-index: -1;
     }
 
-    .contact-form {
-      max-width: 600px;
-      margin: 0 auto;
-      background: rgba(255, 255, 255, 0.05);
+    .cyber-skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+    }
+
+    .cyber-skill-category {
+      background: var(--card-bg);
       backdrop-filter: blur(10px);
-      padding: 2rem;
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
     }
 
-    .form-group {
-      margin-bottom: 1.5rem;
-      text-align: left;
+    .cyber-skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--cyber-gradient);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--primary);
+    .cyber-skill-category:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--cyber-glow);
+      border-color: var(--neon-blue);
+    }
+
+    .cyber-skill-category:hover::before {
+      opacity: 0.1;
+    }
+
+    .cyber-skill-category h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: var(--neon-blue);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    .cyber-skill-category h3 i {
+      font-size: 1.8rem;
+      color: var(--neon-pink);
+      text-shadow: 0 0 5px var(--neon-pink);
+    }
+
+    .cyber-skill-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.8rem;
+      padding: 1.2rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      border-left: 3px solid var(--neon-blue);
+    }
+
+    .cyber-skill-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--cyber-gradient);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .cyber-skill-item:hover {
+      transform: translateX(10px);
+      background: rgba(0, 240, 255, 0.1);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+    }
+
+    .cyber-skill-item:hover::before {
+      opacity: 0.1;
+    }
+
+    .cyber-skill-icon {
+      font-size: 2rem;
+      color: var(--neon-blue);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 240, 255, 0.1);
+      border-radius: 10px;
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    .cyber-skill-name {
+      flex: 1;
+      font-size: 1.2rem;
       font-weight: 500;
     }
 
-    .form-control {
-      width: 100%;
-      padding: 0.8rem 1rem;
+    .cyber-skill-level {
+      width: 100px;
+      height: 6px;
       background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 5px;
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cyber-skill-level::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--cyber-gradient);
+      border-radius: 3px;
+      box-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    /* Cyber Projects Section */
+    .cyber-projects {
+      clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+      padding: 15rem 2rem;
+      background: var(--darker);
+      position: relative;
+    }
+
+    .cyber-projects::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 0, 228, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 70% 80%, rgba(0, 240, 255, 0.1) 0%, transparent 25%);
+      z-index: -1;
+    }
+
+    .cyber-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 3rem;
+    }
+
+    .cyber-project-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 3rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid var(--glass-border);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+    }
+
+    .cyber-project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--cyber-gradient);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .cyber-project-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: var(--cyber-glow);
+      border-color: var(--neon-blue);
+    }
+
+    .cyber-project-card:hover::before {
+      opacity: 0.1;
+    }
+
+    .cyber-project-icon {
+      font-size: 4rem;
+      color: var(--neon-blue);
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    .cyber-project-info h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--light);
+      text-shadow: 0 0 5px var(--light);
+    }
+
+    .cyber-project-info p {
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
+    }
+
+    .cyber-project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .cyber-tech-tag {
+      padding: 0.5rem 1rem;
+      background: rgba(0, 240, 255, 0.1);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      color: var(--neon-blue);
+      text-shadow: 0 0 5px var(--neon-blue);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+    }
+
+    .cyber-project-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .cyber-project-link {
+      padding: 0.8rem 2rem;
+      background: rgba(0, 240, 255, 0.1);
+      border-radius: 50px;
       color: white;
-      font-family: 'Poppins', sans-serif;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+    }
+
+    .cyber-project-link:hover {
+      background: var(--cyber-gradient);
+      color: var(--dark);
+      transform: translateY(-5px);
+      box-shadow: var(--cyber-glow);
+    }
+
+    .cyber-project-link i {
+      transition: transform 0.3s;
+    }
+
+    .cyber-project-link:hover i {
+      transform: translateX(5px);
+    }
+
+    /* Cyber Contact Section */
+    .cyber-contact {
+      position: relative;
+      overflow: hidden;
+      background: var(--darker);
+    }
+
+    .cyber-contact::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.05) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 228, 0.05) 0%, transparent 25%);
+      z-index: -1;
+    }
+
+    .cyber-contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .cyber-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .cyber-contact-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border: 1px solid var(--glass-border);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cyber-contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--cyber-gradient);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .cyber-contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--cyber-glow);
+      border-color: var(--neon-blue);
+    }
+
+    .cyber-contact-card:hover::before {
+      opacity: 0.1;
+    }
+
+    .cyber-contact-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 15px;
+      background: rgba(0, 240, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--neon-blue);
+      text-shadow: 0 0 5px var(--neon-blue);
+      transform: rotate(45deg);
+    }
+
+    .cyber-contact-icon i {
+      transform: rotate(-45deg);
+    }
+
+    .cyber-contact-details h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--light);
+      text-shadow: 0 0 5px var(--light);
+    }
+
+    .cyber-contact-details p, 
+    .cyber-contact-details a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
       transition: all 0.3s;
     }
 
-    .form-control:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.2);
+    .cyber-contact-details a:hover {
+      color: var(--neon-blue);
+      text-shadow: 0 0 5px var(--neon-blue);
     }
 
-    textarea.form-control {
-      min-height: 150px;
+    .cyber-contact-form {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 3rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cyber-contact-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--cyber-gradient);
+      z-index: -1;
+      opacity: 0.05;
+    }
+
+    .cyber-form-group {
+      margin-bottom: 2rem;
+      text-align: left;
+      position: relative;
+    }
+
+    .cyber-form-group label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: var(--neon-blue);
+      font-weight: 600;
+      font-size: 1.1rem;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cyber-form-control {
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      transition: all 0.3s;
+      font-size: 1rem;
+    }
+
+    .cyber-form-control:focus {
+      outline: none;
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+      background: rgba(0, 240, 255, 0.05);
+    }
+
+    textarea.cyber-form-control {
+      min-height: 200px;
       resize: vertical;
     }
 
-    .submit-btn {
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
+    .cyber-submit-btn {
+      background: var(--cyber-gradient);
       color: var(--dark);
       border: none;
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
+      padding: 1.2rem 3rem;
+      font-size: 1.2rem;
       font-weight: bold;
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 1rem;
+      margin-top: 1rem;
+      box-shadow: var(--cyber-glow);
+      font-family: 'Orbitron', sans-serif;
     }
 
-    .submit-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 240, 255, 0.3);
+    .cyber-submit-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+      background: var(--cyber-gradient-reverse);
     }
 
-    .submit-btn i {
+    .cyber-submit-btn i {
       transition: transform 0.3s;
     }
 
-    .submit-btn:hover i {
+    .cyber-submit-btn:hover i {
       transform: translateX(5px);
     }
 
-    /* Footer */
-    footer {
-      background: #0a0a12;
-      padding: 3rem 2rem;
+    /* Cyber Footer */
+    .cyber-footer {
+      background: #050509;
+      padding: 8rem 2rem 4rem;
       text-align: center;
+      position: relative;
+      clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
     }
 
-    .footer-content {
+    .cyber-footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.05) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 228, 0.05) 0%, transparent 25%);
+      z-index: -1;
+    }
+
+    .cyber-footer-content {
       max-width: 1000px;
       margin: 0 auto;
     }
 
-    .copyright {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.9rem;
+    .cyber-footer-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 3rem;
+      display: inline-block;
+      text-shadow: 0 0 10px var(--neon-blue);
     }
 
-    /* Cursor */
-    .cursor {
+    .cyber-footer-logo span {
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    .cyber-footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .cyber-footer-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 1.2rem;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    .cyber-footer-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--neon-blue);
+      transition: width 0.3s;
+    }
+
+    .cyber-footer-link:hover {
+      color: var(--neon-blue);
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    .cyber-footer-link:hover::after {
+      width: 100%;
+    }
+
+    .cyber-footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .cyber-footer-social a {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: rotate(45deg);
+      border: 1px solid var(--glass-border);
+    }
+
+    .cyber-footer-social a i {
+      transform: rotate(-45deg);
+    }
+
+    .cyber-footer-social a:hover {
+      background: var(--cyber-gradient);
+      color: var(--dark);
+      transform: rotate(45deg) scale(1.1);
+      box-shadow: var(--cyber-glow);
+    }
+
+    .cyber-copyright {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .cyber-copyright a {
+      color: var(--neon-blue);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .cyber-copyright a:hover {
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    /* Cyber Back to Top Button */
+    .cyber-back-to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      background: var(--cyber-gradient);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 999;
+      box-shadow: var(--cyber-glow);
+      transform: rotate(45deg);
+    }
+
+    .cyber-back-to-top i {
+      transform: rotate(-45deg);
+    }
+
+    .cyber-back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cyber-back-to-top:hover {
+      transform: rotate(45deg) scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+    }
+
+    /* Cyber Cursor */
+    .cyber-cursor {
       position: fixed;
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: var(--primary);
+      background: var(--neon-blue);
       transform: translate(-50%, -50%);
       pointer-events: none;
       mix-blend-mode: difference;
       z-index: 9999;
       transition: transform 0.1s;
+      box-shadow: 0 0 10px var(--neon-blue);
     }
 
-    .cursor-follower {
+    .cyber-cursor-follower {
       position: fixed;
       width: 40px;
       height: 40px;
-      border: 2px solid var(--primary);
+      border: 2px solid var(--neon-blue);
       border-radius: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 9998;
       transition: all 0.3s ease-out;
       opacity: 0.5;
+      box-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    /* Cyber Terminal Effect */
+    .cyber-terminal {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 300px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--neon-blue);
+      border-radius: 5px;
+      padding: 1rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: var(--matrix-green);
+      text-shadow: 0 0 5px var(--matrix-green);
+      z-index: 100;
+      overflow: hidden;
+      display: none;
+    }
+
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      color: var(--neon-blue);
+    }
+
+    .terminal-content {
+      height: 150px;
+      overflow-y: auto;
+    }
+
+    .terminal-input {
+      display: flex;
+      margin-top: 0.5rem;
+    }
+
+    .terminal-prompt {
+      color: var(--neon-pink);
+      margin-right: 0.5rem;
+    }
+
+    .terminal-command {
+      background: transparent;
+      border: none;
+      color: var(--matrix-green);
+      font-family: 'Courier New', monospace;
+      width: 100%;
+      outline: none;
+    }
+
+    /* Cyber Matrix Rain */
+    .cyber-matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      opacity: 0.1;
+      pointer-events: none;
     }
 
     /* Responsive */
+    @media (max-width: 1200px) {
+      .cyber-about-content,
+      .cyber-contact-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .cyber-contact-info {
+        order: 2;
+      }
+      
+      .cyber-contact-form {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .cyber-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cyber-title {
+        font-size: 4rem;
+      }
+    }
+
     @media (max-width: 768px) {
-      .glitch {
+      .cyber-title {
         font-size: 3rem;
       }
       
-      .tagline {
-        font-size: 1.2rem;
+      .cyber-tagline {
+        font-size: 1.3rem;
       }
       
-      .about-content {
-        flex-direction: column;
+      .cyber-section-title {
+        font-size: 2.5rem;
       }
       
-      .skills, .projects {
+      .cyber-skills, 
+      .cyber-projects {
         clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
-        padding: 6rem 2rem;
+        padding: 10rem 2rem;
       }
 
-      .nav-links {
+      .cyber-nav-links {
         position: fixed;
         top: 0;
         right: 0;
         height: 100vh;
-        width: 100%;
-        background: rgba(10, 10, 18, 0.95);
+        width: 70%;
+        max-width: 300px;
+        background: rgba(10, 10, 18, 0.98);
         backdrop-filter: blur(10px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         transform: translateX(100%);
         transition: transform 0.5s ease-in;
+        border-left: 1px solid var(--neon-blue);
+        box-shadow: -5px 0 30px rgba(0, 240, 255, 0.3);
       }
 
-      .nav-links.active {
+      .cyber-nav-links.active {
         transform: translateX(0);
       }
 
-      .hamburger {
+      .cyber-hamburger {
         display: block;
+      }
+
+      .cyber-hamburger.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .cyber-hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .cyber-hamburger.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      .cyber-footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .cyber-projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .cyber-title {
+        font-size: 2.5rem;
+      }
+      
+      .cyber-tagline {
+        font-size: 1.1rem;
+      }
+      
+      .cyber-section-title {
+        font-size: 2rem;
+      }
+      
+      .cyber-social-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+      .cyber-about-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .cyber-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .cyber-contact-form {
+        padding: 2rem;
+      }
+
+      .cyber-back-to-top {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 20px;
+        right: 20px;
       }
     }
   </style>
 </head>
 
 <body>
-  <!-- Navigation -->
-  <div class="nav-container" id="nav-container">
-    <nav>
-      <a href="#" class="logo">ANSH<span>GUPTA</span></a>
-      <div class="hamburger" id="hamburger">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <div class="nav-links" id="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
+  <!-- Cyberpunk Effects -->
+  <div class="scanlines"></div>
+  <div class="cyber-grid"></div>
+  <canvas id="matrix" class="cyber-matrix"></canvas>
+  <div class="cyber-terminal" id="terminal">
+    <div class="terminal-header">
+      <span>SYSTEM TERMINAL</span>
+      <span>v2.4.7</span>
+    </div>
+    <div class="terminal-content" id="terminalContent">
+      <div>> Initializing system...</div>
+      <div>> Loading personal profile: ANSH_GUPTA.exe</div>
+      <div>> Establishing secure connection...</div>
+      <div>> System ready. Type 'help' for commands</div>
+    </div>
+    <div class="terminal-input">
+      <span class="terminal-prompt">></span>
+      <input type="text" class="terminal-command" id="terminalCommand" autocomplete="off">
+    </div>
   </div>
 
-  <!-- Header -->
-  <header id="home">
-    <div class="particles" id="particles"></div>
-    <div class="glitch-container">
-      <h1 class="glitch" data-text="ANSH GUPTA">ANSH GUPTA</h1>
+  <!-- Cyber Navigation -->
+  <div class="cyber-nav" id="cyberNav">
+    <div class="cyber-nav-container">
+      <a href="#" class="cyber-logo">ANSH<span>GUPTA</span></a>
+      <div class="cyber-hamburger" id="cyberHamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="cyber-nav-links" id="cyberNavLinks">
+        <a href="#home" class="cyber-nav-link">HOME</a>
+        <a href="#about" class="cyber-nav-link">ABOUT</a>
+        <a href="#skills" class="cyber-nav-link">SKILLS</a>
+        <a href="#projects" class="cyber-nav-link">PROJECTS</a>
+        <a href="#contact" class="cyber-nav-link">CONTACT</a>
+      </div>
     </div>
-    <p class="tagline">Web Developer | Entrepreneur | Chess Player | AI Enthusiast</p>
-    
-    <div class="social-icons">
-      <a href="https://github.com/Ansh-Vortex" target="_blank" class="social-icon" title="GitHub">
-        <i class="fab fa-github"></i>
-      </a>
-      <a href="https://www.instagram.com/anshvortex/" target="_blank" class="social-icon" title="Instagram">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="mailto:anshguptavortex@gmail.com" class="social-icon" title="Email">
-        <i class="fas fa-envelope"></i>
-      </a>
-      <a href="https://www.chess.com/member/ansh-v21x" target="_blank" class="social-icon" title="Chess">
-        <i class="fas fa-chess"></i>
-      </a>
-      <a href="https://t.me/StewieXDD" target="_blank" class="social-icon" title="Telegram">
-        <i class="fab fa-telegram"></i>
-      </a>
+  </div>
+
+  <!-- Cyber Header -->
+  <header id="home">
+    <div class="cyber-hex-grid"></div>
+    <div class="header-content">
+      <div class="cyber-glitch">
+        <h1 class="cyber-title" data-text="ANSH GUPTA">ANSH GUPTA</h1>
+      </div>
+      <p class="cyber-tagline"> DEVELOPER • AI ARCHITECT • DIGITAL ALCHEMIST • CHESS PLAYER</p>
+      
+      <div class="cyber-social">
+        <a href="https://github.com/Ansh-Vortex" target="_blank" class="cyber-social-icon" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/anshvortex/" target="_blank" class="cyber-social-icon" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="mailto:anshguptavortex@gmail.com" class="cyber-social-icon" title="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.chess.com/member/ansh-v21x" target="_blank" class="cyber-social-icon" title="Chess">
+          <i class="fas fa-chess"></i>
+        </a>
+        <a href="https://t.me/StewieXDD" target="_blank" class="cyber-social-icon" title="Telegram">
+          <i class="fab fa-telegram"></i>
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- About Section -->
-  <section class="about" id="about">
-    <h2 class="section-title">About Me</h2>
-    <div class="about-content">
-      <div class="about-text">
-        <p>I'm Ansh Gupta, a passionate developer with expertise in web technologies, AI, and automation. I specialize in creating innovative solutions that blend functionality with cutting-edge design.</p>
-        <p>With experience in full-stack development, I build performant web applications using modern technologies like React, Node.js, and Python. My entrepreneurial spirit drives me to create tools that solve real-world problems.</p>
-        <p>When I'm not coding, you can find me playing chess, exploring new technologies, or working on my next big idea.</p>
-      </div>
-      <div class="about-card">
-        <div class="card-inner">
-          <div class="card-front">
-            <i class="fas fa-user"></i>
-            <h3>About Me</h3>
-            <p>Hover to Learn More</p>
-          </div>
-          <div class="card-back">
-            <p><i class="fas fa-code"></i> Full-stack Web Developer</p>
-            <p><i class="fas fa-robot"></i> AI & Automation Specialist</p>
-            <p><i class="fas fa-chess"></i> Chess Enthusiast</p>
-            <p><i class="fas fa-lightbulb"></i> Entrepreneur</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section class="skills" id="skills">
-    <h2 class="section-title">My Skills</h2>
-    <div class="skills-container">
-      <div class="skill-category">
-        <h3>Frontend</h3>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fab fa-html5"></i></div>
-          <div class="skill-name">HTML5</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
-          <div class="skill-name">CSS3</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fab fa-js"></i></div>
-          <div class="skill-name">JavaScript</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fab fa-react"></i></div>
-          <div class="skill-name">React</div>
-        </div>
-      </div>
-      
-      <div class="skill-category">
-        <h3>Backend</h3>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fab fa-node-js"></i></div>
-          <div class="skill-name">Node.js</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fab fa-python"></i></div>
-          <div class="skill-name">Python</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fas fa-server"></i></div>
-          <div class="skill-name">API Development</div>
-        </div>
-      </div>
-      
-      <div class="skill-category">
-        <h3>Languages</h3>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fas fa-code"></i></div>
-          <div class="skill-name">C++</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fas fa-laptop-code"></i></div>
-          <div class="skill-name">C#</div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon"><i class="fab fa-js"></i></div>
-          <div class="skill-name">JavaScript</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section class="projects" id="projects">
-    <h2 class="section-title">My Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-icon"><i class="fas fa-gamepad"></i></div>
-        <div class="project-info">
-          <h3>Flappy America</h3>
-          <p>A modern twist on the classic Flappy Bird game with patriotic themes and enhanced gameplay mechanics.</p>
-          <div class="project-links">
-            <a href="https://osama-flappy-america.netlify.app/" target="_blank" class="project-link">
-              <i class="fas fa-external-link-alt"></i> Live Demo
-            </a>
+  <!-- Cyber About Section -->
+  <section class="cyber-about" id="about">
+    <div class="section-container">
+      <h2 class="cyber-section-title">SYSTEM PROFILE</h2>
+      <div class="cyber-about-content">
+        <div class="cyber-about-text">
+          <p>> Greetings, user. I am Ansh Gupta, a cybernetic developer specializing in full-stack systems architecture and artificial intelligence integration. My neural networks have been trained across multiple programming paradigms and technological stacks.</p>
+          <p>> With over 5 operational years in the digital realm, I have engineered numerous web applications, machine learning models, and automation systems. My core functionality revolves around solving complex problems with elegant, efficient code.</p>
+          <p>> Beyond my primary programming protocols, I engage in strategic cognition enhancement through chess (ELO 1800+), neural network optimization research, and open-source system contributions. Continuous learning and adaptation are integral to my operational parameters.</p>
+          
+          <div class="cyber-stats">
+            <div class="cyber-stat">
+              <div class="cyber-stat-number" data-count="67">0</div>
+              <div class="cyber-stat-label">PROJECTS COMPLETED</div>
+            </div>
+            <div class="cyber-stat">
+              <div class="cyber-stat-number" data-count="6">0</div>
+              <div class="cyber-stat-label">YEARS EXPERIENCE</div>
+            </div>
+            <div class="cyber-stat">
+              <div class="cyber-stat-number" data-count="43">0</div>
+              <div class="cyber-stat-label">SATISFIED CLIENTS</div>
+            </div>
+            <div class="cyber-stat">
+              <div class="cyber-stat-number" data-count="4">0</div>
+              <div class="cyber-stat-label">SYSTEM AWARDS</div>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <div class="project-card">
-        <div class="project-icon"><i class="fas fa-robot"></i></div>
-        <div class="project-info">
-          <h3>Aivana</h3>
-          <p>An AI-powered virtual assistant that helps with productivity, coding, and daily tasks using natural language.</p>
-          <div class="project-links">
-            <a href="https://aivana.vercel.app/" target="_blank" class="project-link">
-              <i class="fas fa-external-link-alt"></i> Live Demo
-            </a>
+        <div class="cyber-about-cards">
+          <div class="cyber-about-card">
+            <div class="cyber-card-inner">
+              <div class="cyber-card-front">
+                <i class="fas fa-laptop-code"></i>
+                <h3>DEVELOPMENT</h3>
+                <p>HOVER TO ACCESS</p>
+              </div>
+              <div class="cyber-card-back">
+                <p><i class="fas fa-code"></i> FULL-STACK SYSTEMS</p>
+                <p><i class="fas fa-database"></i> DATA ARCHITECTURE</p>
+                <p><i class="fas fa-server"></i> CLOUD INTEGRATION</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      
-      <div class="project-card">
-        <div class="project-icon"><i class="fas fa-exchange-alt"></i></div>
-        <div class="project-info">
-          <h3>PSD Image Converter</h3>
-          <p>A powerful tool to convert PSD files to various image formats with batch processing capabilities.</p>
-          <div class="project-links">
-            <a href="https://github.com/Ansh-Vortex/Psd-Image-Converter" target="_blank" class="project-link">
-              <i class="fab fa-github"></i> View Code
-            </a>
+          <div class="cyber-about-card">
+            <div class="cyber-card-inner">
+              <div class="cyber-card-front">
+                <i class="fas fa-robot"></i>
+                <h3>AI/ML</h3>
+                <p>HOVER TO ACCESS</p>
+              </div>
+              <div class="cyber-card-back">
+                <p><i class="fas fa-brain"></i> NEURAL NETWORKS</p>
+                <p><i class="fas fa-comment-alt"></i> NLP SYSTEMS</p>
+                <p><i class="fas fa-eye"></i> COMPUTER VISION</p>
+              </div>
+            </div>
+          </div>
+          <div class="cyber-about-card">
+            <div class="cyber-card-inner">
+              <div class="cyber-card-front">
+                <i class="fas fa-chess"></i>
+                <h3>CHESS</h3>
+                <p>HOVER TO ACCESS</p>
+              </div>
+              <div class="cyber-card-back">
+                <p><i class="fas fa-trophy"></i> TOURNAMENT PLAYER</p>
+                <p><i class="fas fa-chalkboard-teacher"></i> STRATEGY INSTRUCTOR</p>
+                <p><i class="fas fa-puzzle-piece"></i> TACTICAL ANALYST</p>
+              </div>
+            </div>
+          </div>
+          <div class="cyber-about-card">
+            <div class="cyber-card-inner">
+              <div class="cyber-card-front">
+                <i class="fas fa-lightbulb"></i>
+                <h3>ENTREPRENEUR</h3>
+                <p>HOVER TO ACCESS</p>
+              </div>
+              <div class="cyber-card-back">
+                <p><i class="fas fa-rocket"></i> STARTUP FOUNDER</p>
+                <p><i class="fas fa-chart-line"></i> PRODUCT STRATEGY</p>
+                <p><i class="fas fa-users"></i> TEAM LEADERSHIP</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <h2 class="section-title">Get In Touch</h2>
-    <div class="contact-form">
-      <form id="contactForm">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" class="form-control" required>
+  <!-- Cyber Skills Section -->
+  <section class="cyber-skills" id="skills">
+    <div class="section-container">
+      <h2 class="cyber-section-title">SYSTEM CAPABILITIES</h2>
+      <div class="cyber-skills-container">
+        <div class="cyber-skill-category">
+          <h3><i class="fas fa-laptop-code"></i> FRONTEND SYSTEMS</h3>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fab fa-html5"></i></div>
+            <div class="cyber-skill-name">HTML5</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fab fa-css3-alt"></i></div>
+            <div class="cyber-skill-name">CSS3/SASS</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fab fa-js"></i></div>
+            <div class="cyber-skill-name">JAVASCRIPT</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fab fa-react"></i></div>
+            <div class="cyber-skill-name">REACT.JS</div>
+            <div class="cyber-skill-level"></div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" class="form-control" required>
+        
+        <div class="cyber-skill-category">
+          <h3><i class="fas fa-server"></i> BACKEND SYSTEMS</h3>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fab fa-node-js"></i></div>
+            <div class="cyber-skill-name">NODE.JS</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fab fa-python"></i></div>
+            <div class="cyber-skill-name">PYTHON</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fas fa-database"></i></div>
+            <div class="cyber-skill-name">C++</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fas fa-database"></i></div>
+            <div class="cyber-skill-name">C#</div>
+            <div class="cyber-skill-level"></div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" class="form-control" required></textarea>
+        
+        <div class="cyber-skill-category">
+          <h3><i class="fas fa-robot"></i> AI/ML MODULES</h3>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fas fa-brain"></i></div>
+            <div class="cyber-skill-name">TENSORFLOW</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fas fa-brain"></i></div>
+            <div class="cyber-skill-name">PYTORCH</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fas fa-comment-alt"></i></div>
+            <div class="cyber-skill-name">NLP</div>
+            <div class="cyber-skill-level"></div>
+          </div>
+          <div class="cyber-skill-item">
+            <div class="cyber-skill-icon"><i class="fas fa-eye"></i></div>
+            <div class="cyber-skill-name">COMPUTER VISION</div>
+            <div class="cyber-skill-level"></div>
+          </div>
         </div>
-        <button type="submit" class="submit-btn">
-          Send Message <i class="fas fa-paper-plane"></i>
-        </button>
-      </form>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <p class="copyright">© 2023 Ansh Gupta. All rights reserved.</p>
+  <!-- Cyber Projects Section -->
+  <section class="cyber-projects" id="projects">
+    <div class="section-container">
+      <h2 class="cyber-section-title">SYSTEM PROJECTS</h2>
+      <div class="cyber-projects-grid">
+        <div class="cyber-project-card">
+          <div class="cyber-project-icon"><i class="fas fa-gamepad"></i></div>
+          <div class="cyber-project-info">
+            <h3>FLAPPY AMERICA</h3>
+            <p>A cyber-enhanced iteration of the classic Flappy Bird simulation with advanced physics, multiplayer functionality, and neural network-based AI opponents.</p>
+            <div class="cyber-project-tech">
+              <span class="cyber-tech-tag">JAVASCRIPT</span>
+              <span class="cyber-tech-tag">PHASER.JS</span>
+              <span class="cyber-tech-tag">WEBSOCKETS</span>
+            </div>
+            <div class="cyber-project-links">
+              <a href="https://osama-flappy-america.netlify.app/" target="_blank" class="cyber-project-link">
+                <i class="fas fa-external-link-alt"></i> ACCESS
+              </a>
+              <a href="https://github.com/Ansh-Vortex/flappy-america" target="_blank" class="cyber-project-link">
+                <i class="fab fa-github"></i> SOURCE
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cyber-project-card">
+          <div class="cyber-project-icon"><i class="fas fa-robot"></i></div>
+          <div class="cyber-project-info">
+            <h3>AIVANA AI</h3>
+            <p>An advanced artificial intelligence assistant with natural language processing capabilities, capable of code generation, problem solving, and predictive analytics.</p>
+            <div class="cyber-project-tech">
+              <span class="cyber-tech-tag">PYTHON</span>
+              <span class="cyber-tech-tag">TENSORFLOW</span>
+              <span class="cyber-tech-tag">NLP</span>
+            </div>
+            <div class="cyber-project-links">
+              <a href="https://aivana.vercel.app/" target="_blank" class="cyber-project-link">
+                <i class="fas fa-external-link-alt"></i> ACCESS
+              </a>
+              <a href="https://github.com/Ansh-Vortex/aivana" target="_blank" class="cyber-project-link">
+                <i class="fab fa-github"></i> SOURCE
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cyber-project-card">
+          <div class="cyber-project-icon"><i class="fas fa-exchange-alt"></i></div>
+          <div class="cyber-project-info">
+            <h3>PSD IMAGE CONVERTER</h3>
+            <p>A high-performance desktop application for batch conversion of PSD files with layer management, quality optimization, and automated processing capabilities.</p>
+            <div class="cyber-project-tech">
+              <span class="cyber-tech-tag">C#</span>
+              <span class="cyber-tech-tag">.NET</span>
+              <span class="cyber-tech-tag">PHOTOSHOP API</span>
+            </div>
+            <div class="cyber-project-links">
+              <a href="https://github.com/Ansh-Vortex/Psd-Image-Converter" target="_blank" class="cyber-project-link">
+                <i class="fab fa-github"></i> SOURCE
+              </a>
+              <a href="#" class="cyber-project-link">
+                <i class="fas fa-download"></i> DOWNLOAD
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cyber Contact Section -->
+  <section class="cyber-contact" id="contact">
+    <div class="section-container">
+      <h2 class="cyber-section-title">SYSTEM ACCESS</h2>
+      <div class="cyber-contact-content">
+        <div class="cyber-contact-form">
+          <form id="cyberContactForm">
+            <div class="cyber-form-group">
+              <label for="cyberName">IDENTIFICATION</label>
+              <input type="text" id="cyberName" class="cyber-form-control" required>
+            </div>
+            <div class="cyber-form-group">
+              <label for="cyberEmail">COMMUNICATION CHANNEL</label>
+              <input type="email" id="cyberEmail" class="cyber-form-control" required>
+            </div>
+            <div class="cyber-form-group">
+              <label for="cyberSubject">MESSAGE PROTOCOL</label>
+              <input type="text" id="cyberSubject" class="cyber-form-control" required>
+            </div>
+            <div class="cyber-form-group">
+              <label for="cyberMessage">MESSAGE CONTENT</label>
+              <textarea id="cyberMessage" class="cyber-form-control" required></textarea>
+            </div>
+            <button type="submit" class="cyber-submit-btn">
+              INITIATE TRANSMISSION <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+        <div class="cyber-contact-info">
+          <div class="cyber-contact-card">
+            <div class="cyber-contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="cyber-contact-details">
+              <h3>DATA TRANSMISSION</h3>
+              <a href="mailto:anshguptavortex@gmail.com">anshguptavortex@gmail.com</a>
+            </div>
+          </div>
+          <div class="cyber-contact-card">
+            <div class="cyber-contact-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="cyber-contact-details">
+              <h3>VOICE COMMUNICATION</h3>
+              <a href="tel:+919876543210">Discord - anshvortexx</a>
+            </div>
+          </div>
+          <div class="cyber-contact-card">
+            <div class="cyber-contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="cyber-contact-details">
+              <h3>PHYSICAL LOCATION</h3>
+              <p>Madhya Pradesh, India</p>
+            </div>
+          </div>
+          <div class="cyber-contact-card">
+            <div class="cyber-contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="cyber-contact-details">
+              <h3>OPERATIONAL HOURS</h3>
+              <p>Monday - Friday: 9am - 6pm</p>
+              <p>Weekends: Emergency protocols</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cyber Footer -->
+  <footer class="cyber-footer">
+    <div class="cyber-footer-content">
+      <div class="cyber-footer-logo">ANSH<span>GUPTA</span></div>
+      <div class="cyber-footer-links">
+        <a href="#home" class="cyber-footer-link">HOME</a>
+        <a href="#about" class="cyber-footer-link">ABOUT</a>
+        <a href="#skills" class="cyber-footer-link">SKILLS</a>
+        <a href="#projects" class="cyber-footer-link">PROJECTS</a>
+        <a href="#contact" class="cyber-footer-link">CONTACT</a>
+      </div>
+      <div class="cyber-footer-social">
+        <a href="https://github.com/Ansh-Vortex" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/anshvortex/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:anshguptavortex@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.chess.com/member/ansh-v21x" target="_blank"><i class="fas fa-chess"></i></a>
+        <a href="https://t.me/StewieXDD" target="_blank"><i class="fab fa-telegram"></i></a>
+      </div>
+      <p class="cyber-copyright">© 2023 ANSH GUPTA SYSTEMS. ALL RIGHTS RESERVED. | DESIGNED & DEVELOPED WITH <i class="fas fa-heart" style="color: var(--neon-pink);"></i> BY <a href="#">ANSH GUPTA</a></p>
     </div>
   </footer>
 
-  <!-- Cursor elements -->
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
+  <!-- Cyber Back to Top Button -->
+  <div class="cyber-back-to-top" id="cyberBackToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Cyber Cursor elements -->
+  <div class="cyber-cursor"></div>
+  <div class="cyber-cursor-follower"></div>
 
   <script>
-    // Navigation scroll effect
+    // Cyber Navigation scroll effect
     window.addEventListener('scroll', () => {
-      const nav = document.getElementById('nav-container');
+      const nav = document.getElementById('cyberNav');
+      const backToTop = document.getElementById('cyberBackToTop');
+      
       if (window.scrollY > 50) {
-        nav.classList.add('nav-scrolled');
+        nav.classList.add('cyber-nav-scrolled');
       } else {
-        nav.classList.remove('nav-scrolled');
+        nav.classList.remove('cyber-nav-scrolled');
+      }
+      
+      if (window.scrollY > 300) {
+        backToTop.classList.add('active');
+      } else {
+        backToTop.classList.remove('active');
       }
     });
 
-    // Mobile menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
+    // Cyber Mobile menu toggle
+    const cyberHamburger = document.getElementById('cyberHamburger');
+    const cyberNavLinks = document.getElementById('cyberNavLinks');
 
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      hamburger.classList.toggle('active');
+    cyberHamburger.addEventListener('click', () => {
+      cyberNavLinks.classList.toggle('active');
+      cyberHamburger.classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
     });
 
     // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
+    document.querySelectorAll('.cyber-nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        hamburger.classList.remove('active');
+        cyberNavLinks.classList.remove('active');
+        cyberHamburger.classList.remove('active');
+        document.body.classList.remove('no-scroll');
       });
     });
 
-    // Create floating particles
-    function createParticles() {
-      const particles = document.getElementById('particles');
-      const particleCount = 50;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
+    // Cyber Terminal Functionality
+    const terminal = document.getElementById('terminal');
+    const terminalContent = document.getElementById('terminalContent');
+    const terminalCommand = document.getElementById('terminalCommand');
+
+    // Show terminal after delay
+    setTimeout(() => {
+      terminal.style.display = 'block';
+      addTerminalOutput("> System terminal activated");
+      addTerminalOutput("> Type 'help' for available commands");
+    }, 3000);
+
+    terminalCommand.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const command = terminalCommand.value.trim().toLowerCase();
+        terminalCommand.value = '';
         
-        const size = Math.random() * 4 + 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.bottom = `-${size}px`;
-        particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
-        particle.style.animationDelay = `${Math.random() * 5}s`;
+        addTerminalOutput(`> ${command}`);
         
-        particles.appendChild(particle);
+        switch(command) {
+          case 'help':
+            addTerminalOutput("Available commands:");
+            addTerminalOutput("- 'about': Display system information");
+            addTerminalOutput("- 'projects': List active projects");
+            addTerminalOutput("- 'contact': Show communication channels");
+            addTerminalOutput("- 'clear': Reset terminal");
+            addTerminalOutput("- 'chess': chess Status");
+            break;
+          case 'about':
+            addTerminalOutput("ANSH GUPTA SYSTEMS v2.4.7");
+            addTerminalOutput("Full-stack cyber developer");
+            addTerminalOutput("AI/ML specialist");
+            addTerminalOutput("Digital solutions architect");
+            break;
+          case 'projects':
+            addTerminalOutput("Active projects:");
+            addTerminalOutput("- Flappy America: Advanced game simulation");
+            addTerminalOutput("- Aivana AI: Neural network assistant");
+            addTerminalOutput("- PSD Converter: Image processing tool");
+            break;
+          case 'contact':
+            addTerminalOutput("Communication channels:");
+            addTerminalOutput("- Email: anshguptavortex@gmail.com");
+            addTerminalOutput("- GitHub: github.com/Ansh-Vortex");
+            addTerminalOutput("- Telegram: @StewieXDD");
+            break;
+          case 'chess':
+          addTerminalOutput("Current Chess Status");
+          addTerminalOutput("- Rapid Elo - 1800");
+          addTerminalOutput("- Blitz Elo - 1500");
+          addTerminalOutput("- Bullet Elo - 1600");
+          addTerminalOutput("- Win Streak - 8");
+          break;
+          case 'clear':
+            terminalContent.innerHTML = '';
+            addTerminalOutput("> Terminal cleared");
+            addTerminalOutput("> System ready");
+            break;
+          default:
+            addTerminalOutput(`Error: Command '${command}' not recognized`);
+            addTerminalOutput("> Type 'help' for available commands");
+        }
+        
+        terminalContent.scrollTop = terminalContent.scrollHeight;
       }
+    });
+
+    function addTerminalOutput(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      terminalContent.appendChild(div);
+      terminalContent.scrollTop = terminalContent.scrollHeight;
     }
-    
-    // Custom cursor effect
-    const cursor = document.querySelector('.cursor');
-    const cursorFollower = document.querySelector('.cursor-follower');
+
+    // Cyber Cursor effect
+    const cyberCursor = document.querySelector('.cyber-cursor');
+    const cyberCursorFollower = document.querySelector('.cyber-cursor-follower');
     
     document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      cyberCursor.style.left = e.clientX + 'px';
+      cyberCursor.style.top = e.clientY + 'px';
       
       setTimeout(() => {
-        cursorFollower.style.left = e.clientX + 'px';
-        cursorFollower.style.top = e.clientY + 'px';
+        cyberCursorFollower.style.left = e.clientX + 'px';
+        cyberCursorFollower.style.top = e.clientY + 'px';
       }, 100);
     });
     
     // Add hover effect to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .project-card, .social-icon, .skill-item');
+    const cyberInteractiveElements = document.querySelectorAll(
+      'a, button, .cyber-project-card, .cyber-social-icon, .cyber-skill-item, .cyber-stat, .cyber-contact-card'
+    );
     
-    interactiveElements.forEach(el => {
+    cyberInteractiveElements.forEach(el => {
       el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        cyberCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        cyberCursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        cyberCursor.style.backgroundColor = va(--neon-pink);
       });
       
       el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-        cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+        cyberCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        cyberCursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+        cyberCursor.style.backgroundColor = va(--neon-blue);
       });
     });
 
-    // Contact form submission
-    const contactForm = document.getElementById('contactForm');
-    contactForm.addEventListener('submit', (e) => {
+    // Cyber Contact form submission
+    const cyberContactForm = document.getElementById('cyberContactForm');
+    cyberContactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
+      const name = document.getElementById('cyberName').value;
+      const email = document.getElementById('cyberEmail').value;
+      const subject = document.getElementById('cyberSubject').value;
+      const message = document.getElementById('cyberMessage').value;
       
       // Here you would typically send the form data to a server
       // For demo purposes, we'll just show an alert
-      alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon at ${email}.`);
+      alert(`TRANSMISSION INITIATED\n\nRecipient: ${name}\nChannel: ${email}\nSubject: ${subject}\n\nMessage queued for delivery`);
       
       // Reset the form
-      contactForm.reset();
+      cyberContactForm.reset();
     });
     
+    // Cyber Back to top button
+    const cyberBackToTop = document.getElementById('cyberBackToTop');
+    cyberBackToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Animate stats counting
+    function animateCyberStats() {
+      const statNumbers = document.querySelectorAll('.cyber-stat-number');
+      
+      statNumbers.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        const duration = 2000; // 2 seconds
+        const step = target / (duration / 16); // 60fps
+        let current = 0;
+        
+        const counter = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            clearInterval(counter);
+            current = target;
+          }
+          stat.textContent = Math.floor(current);
+        }, 16);
+      });
+    }
+    
+    // Matrix Rain Effect
+    function initMatrixRain() {
+      const canvas = document.getElementById('matrix');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+      const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const nums = '0123456789';
+      const symbols = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+      
+      const alphabet = katakana + latin + nums + symbols;
+      
+      const fontSize = 16;
+      const columns = canvas.width / fontSize;
+      
+      const rainDrops = [];
+      
+      for (let x = 0; x < columns; x++) {
+        rainDrops[x] = 1;
+      }
+      
+      const draw = () => {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = '#0F0';
+        ctx.font = fontSize + 'px monospace';
+        
+        for (let i = 0; i < rainDrops.length; i++) {
+          const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+          ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+          
+          if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            rainDrops[i] = 0;
+          }
+          rainDrops[i]++;
+        }
+      };
+      
+      setInterval(draw, 30);
+      
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+    
     // Initialize on load
-    window.addEventListener('load', createParticles);
+    window.addEventListener('load', () => {
+      // Initialize Matrix Rain
+      initMatrixRain();
+      
+      // Animate stats when they come into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCyberStats();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      document.querySelectorAll('.cyber-stats').forEach(stat => {
+        observer.observe(stat);
+      });
+    });
   </script>
 </body>
 </html>
